@@ -3,100 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research Dashboard | Process Safety</title>
+    <title>Process Safety Dashboard</title>
     <style>
+        /* --- THE PAINT & DECOR (CSS) --- */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f4f8;
-            color: #333;
             margin: 0;
-            padding: 30px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            display: flex; /* This lines things up side-by-side */
+            height: 100vh;
+            overflow: hidden;
         }
-        .dashboard-container {
-            max-width: 850px;
-            margin: 0 auto;
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.05);
-        }
-        h1 { color: #1a365d; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
-        h2 { color: #2b6cb0; margin-top: 30px; }
-        .intro-box {
-            background-color: #ebf8ff;
-            padding: 15px;
-            border-left: 5px solid #3182ce;
-            border-radius: 4px;
-            margin-bottom: 30px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label { display: block; font-weight: bold; margin-bottom: 5px; }
-        input, select, button {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #cbd5e0;
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
-        button {
-            background-color: #2b6cb0;
+
+        /* 1. The Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #1a202c;
             color: white;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-            margin-top: 10px;
+            transition: 0.3s; /* Makes the open/close smooth */
+            display: flex;
+            flex-direction: column;
         }
-        button:hover { background-color: #2c5282; }
+        .sidebar.closed {
+            width: 0; /* Hides the sidebar */
+            overflow: hidden;
+        }
+        .sidebar h2 {
+            text-align: center;
+            padding: 20px 0;
+            margin: 0;
+            border-bottom: 1px solid #2d3748;
+            font-size: 1.2rem;
+        }
+        .sidebar a {
+            padding: 15px 20px;
+            color: #a0aec0;
+            text-decoration: none;
+            display: block;
+            border-bottom: 1px solid #2d3748;
+            cursor: pointer;
+        }
+        .sidebar a:hover {
+            background-color: #2d3748;
+            color: white;
+        }
+
+        /* 2. The Main Right Side */
+        .main-wrapper {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s;
+        }
+
+        /* 3. The Topbar */
+        .topbar {
+            background-color: white;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Pushes items to opposite ends */
+            padding: 0 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .menu-btn, .profile-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #4a5568;
+        }
+        .menu-btn:hover, .profile-btn:hover {
+            color: #2b6cb0;
+        }
+
+        /* 4. The Content Area */
+        .content {
+            padding: 30px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+        
+        /* This hides sections by default */
+        .section { display: none; }
+        /* This shows the active section */
+        .section.active { display: block; }
+        
+        /* Dashboard Card Styling */
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        h1 { color: #2d3748; margin-top: 0; }
     </style>
 </head>
 <body>
 
-    <div class="dashboard-container">
-        
-        <h1>Process Safety & Human Reliability Dashboard</h1>
-        
-        <div class="intro-box">
-            <p><strong>Research Focus:</strong> Developing a hybrid methodology to assess human error in high-hazard installations, aligning with CIMAH 1996 and OSHA frameworks.</p>
-        </div>
-
-        <h2>Analytical Prototype (AHP / DEMATEL)</h2>
-        <p><em>Note: Complex mathematical architecture integration is currently in development via Microsoft Excel translation.</em></p>
-        <div class="form-group">
-            <label>Test Input Parameter:</label>
-            <input type="number" placeholder="Enter baseline weight...">
-            <button>Calculate Node Relation</button>
-        </div>
-
-        <h2>Expert Input Survey</h2>
-        <p>Please provide your evaluation of the standard HRA methodologies below.</p>
-        
-        <form>
-            <div class="form-group">
-                <label>Expert ID / Alphanumeric Code:</label>
-                <input type="text" placeholder="e.g., EXP-001" required>
-            </div>
-
-            <div class="form-group">
-                <label>Primary HRA Tool Evaluated:</label>
-                <select>
-                    <option value="CREAM">CREAM (Cognitive Reliability and Error Analysis Method)</option>
-                    <option value="HEART">HEART (Human Error Assessment and Reduction Technique)</option>
-                    <option value="THERP">THERP (Technique for Human Error Rate Prediction)</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Observations on Cognitive Workload:</label>
-                <input type="text" placeholder="Enter brief insights...">
-            </div>
-
-            <button type="button">Submit Feedback</button>
-        </form>
-
+    <div class="sidebar" id="mySidebar">
+        <h2>Menu</h2>
+        <a onclick="showSection('home')">Home Dashboard</a>
+        <a onclick="showSection('hirarc')">HIRARC Calculator</a>
+        <a onclick="showSection('cream')">CREAM Methodology</a>
+        <a onclick="showSection('therp')">THERP Analysis</a>
+        <a onclick="showSection('about')">About the Creator</a>
     </div>
+
+    <div class="main-wrapper">
+        
+        <div class="topbar">
+            <button class="menu-btn" onclick="toggleSidebar()">&#9776;</button>
+            
+            <button class="profile-btn" onclick="showSection('about')">&#128100;</button>
+        </div>
+
+        <div class="content">
+
+            <div id="home" class="section active">
+                <div class="card">
+                    <h1>Process Safety Research Hub</h1>
+                    <p>Welcome to the main dashboard. Select a tool from the menu on the left to begin assessing human error in high-hazard installations.</p>
+                </div>
+            </div>
+
+            <div id="about" class="section">
+                <div class="card">
+                    <h1>About Nabhan</h1>
+                    <p><strong>PhD Candidate & Postgraduate Researcher</strong></p>
+                    <p>I am a researcher specializing in Process Safety and Human Reliability Analysis (HRA). My current work focuses on developing hybrid evaluation models integrating methodologies like AHP and DEMATEL to ensure safety compliance in high-hazard industries.</p>
+                </div>
+            </div>
+
+            <div id="hirarc" class="section">
+                <div class="card">
+                    <h1>HIRARC Calculator</h1>
+                    <p>Hazard Identification, Risk Assessment and Risk Control tool coming soon.</p>
+                </div>
+            </div>
+
+            <div id="cream" class="section">
+                <div class="card">
+                    <h1>CREAM Assessment</h1>
+                    <p>Cognitive Reliability and Error Analysis Method tool coming soon.</p>
+                </div>
+            </div>
+
+            <div id="therp" class="section">
+                <div class="card">
+                    <h1>THERP Analysis</h1>
+                    <p>Technique for Human Error Rate Prediction tool coming soon.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // 1. Function to open/close the sidebar
+        function toggleSidebar() {
+            let sidebar = document.getElementById("mySidebar");
+            sidebar.classList.toggle("closed");
+        }
+
+        // 2. Function to hide all sections and show the one you clicked
+        function showSection(sectionId) {
+            // Find all elements with the class 'section'
+            let sections = document.getElementsByClassName("section");
+            
+            // Loop through them and hide them all
+            for (let i = 0; i < sections.length; i++) {
+                sections[i].classList.remove("active");
+            }
+            
+            // Find the specific section we want and show it
+            document.getElementById(sectionId).classList.add("active");
+            
+            // On mobile devices, close the sidebar after clicking a link
+            if (window.innerWidth < 768) {
+                document.getElementById("mySidebar").classList.add("closed");
+            }
+        }
+    </script>
 
 </body>
 </html>
