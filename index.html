@@ -22,127 +22,70 @@
             display: flex;
             flex-direction: column;
         }
-        .sidebar.closed {
-            width: 0;
-            overflow: hidden;
-        }
-        .sidebar h2 {
-            text-align: center;
-            padding: 20px 0;
-            margin: 0;
-            border-bottom: 1px solid #2d3748;
-            font-size: 1.2rem;
-        }
-        .sidebar a {
-            padding: 15px 20px;
-            color: #a0aec0;
-            text-decoration: none;
-            display: block;
-            border-bottom: 1px solid #2d3748;
-            cursor: pointer;
-        }
-        .sidebar a:hover {
-            background-color: #2d3748;
-            color: white;
-        }
-        .main-wrapper {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            transition: 0.3s;
-        }
+        .sidebar.closed { width: 0; overflow: hidden; }
+        .sidebar h2 { text-align: center; padding: 20px 0; margin: 0; border-bottom: 1px solid #2d3748; font-size: 1.2rem; }
+        .sidebar a { padding: 15px 20px; color: #a0aec0; text-decoration: none; display: block; border-bottom: 1px solid #2d3748; cursor: pointer; }
+        .sidebar a:hover { background-color: #2d3748; color: white; }
+        
+        .main-wrapper { flex-grow: 1; display: flex; flex-direction: column; transition: 0.3s; }
+        
         .topbar {
-            background-color: white;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background-color: white; height: 60px; display: flex; align-items: center;
+            justify-content: space-between; padding: 0 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        .menu-btn, .profile-btn {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #4a5568;
-        }
+        .menu-btn, .profile-btn { background: none; border: none; font-size: 24px; cursor: pointer; color: #4a5568; }
         .menu-btn:hover, .profile-btn:hover { color: #2b6cb0; }
-        .content {
-            padding: 30px;
-            overflow-y: auto;
-            flex-grow: 1;
-        }
+        
+        .content { padding: 30px; overflow-y: auto; flex-grow: 1; }
         .section { display: none; }
         .section.active { display: block; }
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-        }
+        .card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; }
         h1 { color: #2d3748; margin-top: 0; }
         
-        /* --- NEW ABOUT SECTION STYLES --- */
-        .about-layout {
-            display: flex;
-            gap: 30px;
-            align-items: flex-start;
+        /* About Section */
+        .about-layout { display: flex; gap: 30px; align-items: flex-start; }
+        .profile-pic { width: 200px; height: 250px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border: 3px solid #e2e8f0; }
+        .contact-box { background-color: #ebf8ff; padding: 15px; border-radius: 6px; margin-top: 20px; border-left: 4px solid #3182ce; }
+        .contact-box a { color: #2b6cb0; text-decoration: none; font-weight: bold; }
+        @media (max-width: 600px) { .about-layout { flex-direction: column; align-items: center; text-align: center; } }
+
+        /* --- NEW HIRARC TABLE STYLES --- */
+        .hirarc-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
         }
-        .profile-pic {
-            width: 200px;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            border: 3px solid #e2e8f0;
+        .hirarc-table th, .hirarc-table td {
+            border: 1px solid #cbd5e0;
+            padding: 12px;
+            text-align: left;
         }
-        .contact-box {
-            background-color: #ebf8ff;
-            padding: 15px;
-            border-radius: 6px;
-            margin-top: 20px;
-            border-left: 4px solid #3182ce;
+        .hirarc-table th {
+            background-color: #2b6cb0;
+            color: white;
         }
-        .contact-box a {
-            color: #2b6cb0;
-            text-decoration: none;
-            font-weight: bold;
+        .hirarc-table input, .hirarc-table select {
+            width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;
         }
-        .contact-box a:hover { text-decoration: underline; }
-        
-        /* Makes it look good on mobile phones */
-        @media (max-width: 600px) {
-            .about-layout { flex-direction: column; align-items: center; text-align: center; }
-        }
-        /* --- HIRARC Calculator Styles --- */
-        .result-panel {
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-            display: none; /* Hidden until calculated */
+        .result-cell {
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #4a5568;
+            background-color: #f7fafc;
+            vertical-align: middle;
+            width: 120px;
         }
-        .risk-low { background-color: #48bb78; color: white; }
-        .risk-medium { background-color: #ecc94b; color: #2d3748; }
-        .risk-high { background-color: #f56565; color: white; }
         
-        .matrix-legend {
-            display: flex;
-            justify-content: space-around;
-            background: #f7fafc;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 30px;
-            border: 1px solid #e2e8f0;
-        }
-        .legend-item { display: flex; align-items: center; font-weight: bold; }
-        .color-box { width: 20px; height: 20px; border-radius: 4px; margin-right: 10px; }
-        .box-low { background-color: #48bb78; }
-        .box-medium { background-color: #ecc94b; }
-        .box-high { background-color: #f56565; }
+        /* Risk Colors */
+        .risk-low { background-color: #48bb78 !important; color: white !important; }
+        .risk-medium { background-color: #ecc94b !important; color: #2d3748 !important; }
+        .risk-high { background-color: #f56565 !important; color: white !important; }
+
+        /* Matrix Table */
+        .matrix-table { width: 100%; max-width: 500px; margin: 20px auto; border-collapse: collapse; text-align: center; }
+        .matrix-table th, .matrix-table td { border: 1px solid #cbd5e0; padding: 10px; font-weight: bold; }
+        .matrix-header { background-color: #2d3748; color: white; }
     </style>
 </head>
 <body>
@@ -157,7 +100,6 @@
     </div>
 
     <div class="main-wrapper">
-        
         <div class="topbar">
             <button class="menu-btn" onclick="toggleSidebar()">&#9776;</button>
             <button class="profile-btn" onclick="showSection('about')">&#128100;</button>
@@ -168,20 +110,18 @@
             <div id="home" class="section active">
                 <div class="card">
                     <h1>Process Safety Research Hub</h1>
-                    <p>Welcome to the main dashboard. Select a tool from the menu on the left to begin assessing human error in high-hazard installations.</p>
+                    <p>Welcome to the main dashboard. Select a tool from the menu on the left.</p>
                 </div>
             </div>
 
             <div id="about" class="section">
                 <div class="card about-layout">
                     <img src="profile.JPG" alt="Nabhan Profile Picture" class="profile-pic">
-                    
                     <div>
                         <h1>About Nabhan</h1>
                         <p><strong>PhD Candidate & Postgraduate Researcher</strong></p>
                         <p>Universiti Malaysia Pahang Al-Sultan Abdullah (UMPSA)</p>
                         <p>I am a researcher specializing in Process Safety and Human Reliability Analysis (HRA). My current work focuses on developing hybrid evaluation models integrating methodologies like AHP and DEMATEL to ensure safety compliance in high-hazard industries.</p>
-                        
                         <div class="contact-box">
                             <p>📧 Email: <a href="mailto:muhammadnabhan7701@gmail.com">muhammadnabhan7701@gmail.com</a></p>
                             <p>📞 Phone: <a href="tel:+60129267281">+60 12-926 7281</a></p>
@@ -190,57 +130,141 @@
                 </div>
             </div>
 
-         <div id="hirarc" class="section">
+            <div id="hirarc" class="section">
                 <div class="card">
                     <h1>HIRARC Risk Calculator</h1>
-                    <p>Evaluate process safety risks based on standard Likelihood × Severity metrics.</p>
+                    <p>Log your job activities below. The risk score will calculate automatically when you select L and S.</p>
 
-                    <div class="form-group">
-                        <label>Job / Task Activity:</label>
-                        <input type="text" id="jobTask" placeholder="e.g., Chemical transferring...">
-                    </div>
+                    <table class="hirarc-table">
+                        <thead>
+                            <tr>
+                                <th>Job / Task Activity</th>
+                                <th>Likelihood (L)</th>
+                                <th>Severity (S)</th>
+                                <th>Risk Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" placeholder="e.g., Chemical transfer..."></td>
+                                <td>
+                                    <select class="val-l" onchange="calculateRow(this)">
+                                        <option value="0">Select...</option>
+                                        <option value="1">1 - Most Unlikely</option>
+                                        <option value="2">2 - Unlikely</option>
+                                        <option value="3">3 - Possible</option>
+                                        <option value="4">4 - Likely</option>
+                                        <option value="5">5 - Most Likely</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="val-s" onchange="calculateRow(this)">
+                                        <option value="0">Select...</option>
+                                        <option value="1">1 - Negligible</option>
+                                        <option value="2">2 - Minor</option>
+                                        <option value="3">3 - Moderate</option>
+                                        <option value="4">4 - Major</option>
+                                        <option value="5">5 - Catastrophic</option>
+                                    </select>
+                                </td>
+                                <td class="result-cell">-</td>
+                            </tr>
+                            
+                            <tr>
+                                <td><input type="text" placeholder="e.g., Valve maintenance..."></td>
+                                <td>
+                                    <select class="val-l" onchange="calculateRow(this)">
+                                        <option value="0">Select...</option>
+                                        <option value="1">1 - Most Unlikely</option>
+                                        <option value="2">2 - Unlikely</option>
+                                        <option value="3">3 - Possible</option>
+                                        <option value="4">4 - Likely</option>
+                                        <option value="5">5 - Most Likely</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="val-s" onchange="calculateRow(this)">
+                                        <option value="0">Select...</option>
+                                        <option value="1">1 - Negligible</option>
+                                        <option value="2">2 - Minor</option>
+                                        <option value="3">3 - Moderate</option>
+                                        <option value="4">4 - Major</option>
+                                        <option value="5">5 - Catastrophic</option>
+                                    </select>
+                                </td>
+                                <td class="result-cell">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                    <div class="form-group">
-                        <label>Likelihood (L):</label>
-                        <select id="hirarc-l">
-                            <option value="1">1 - Most Unlikely</option>
-                            <option value="2">2 - Unlikely</option>
-                            <option value="3">3 - Possible</option>
-                            <option value="4">4 - Likely</option>
-                            <option value="5">5 - Most Likely</option>
-                        </select>
-                    </div>
+                    <hr style="border: 1px solid #e2e8f0; margin: 40px 0;">
 
-                    <div class="form-group">
-                        <label>Severity (S):</label>
-                        <select id="hirarc-s">
-                            <option value="1">1 - Negligible (No injury)</option>
-                            <option value="2">2 - Minor (First aid)</option>
-                            <option value="3">3 - Moderate (Medical treatment)</option>
-                            <option value="4">4 - Major (Fatal/Permanent disability)</option>
-                            <option value="5">5 - Catastrophic (Multiple fatalities)</option>
-                        </select>
-                    </div>
-
-                    <button onclick="calculateHirarc()">Calculate Risk Score</button>
-
-                    <div id="hirarcResult" class="result-panel">
-                        <h3 style="margin:0 0 10px 0;">Assessment Result</h3>
-                        <p id="taskOutput" style="font-size: 1.1rem; margin-bottom: 5px;"></p>
-                        <p id="mathOutput" style="margin-bottom: 10px;"></p>
-                        <h2 id="riskOutput" style="margin:0; font-size: 2rem;"></h2>
-                    </div>
-
-                    <div class="matrix-legend">
-                        <div class="legend-item"><div class="color-box box-low"></div> Low Risk (1-4)</div>
-                        <div class="legend-item"><div class="color-box box-medium"></div> Medium Risk (5-14)</div>
-                        <div class="legend-item"><div class="color-box box-high"></div> High Risk (15-25)</div>
-                    </div>
+                    <h2 style="text-align: center;">Overall Risk Matrix</h2>
+                    <table class="matrix-table">
+                        <tr>
+                            <th colspan="2" rowspan="2" style="border:none;"></th>
+                            <th colspan="5" class="matrix-header">Severity (S)</th>
+                        </tr>
+                        <tr>
+                            <th class="matrix-header">1</th>
+                            <th class="matrix-header">2</th>
+                            <th class="matrix-header">3</th>
+                            <th class="matrix-header">4</th>
+                            <th class="matrix-header">5</th>
+                        </tr>
+                        <tr>
+                            <th rowspan="5" class="matrix-header" style="writing-mode: vertical-rl; transform: rotate(180deg);">Likelihood (L)</th>
+                            <th class="matrix-header">5</th>
+                            <td class="risk-medium">5</td>
+                            <td class="risk-medium">10</td>
+                            <td class="risk-high">15</td>
+                            <td class="risk-high">20</td>
+                            <td class="risk-high">25</td>
+                        </tr>
+                        <tr>
+                            <th class="matrix-header">4</th>
+                            <td class="risk-low">4</td>
+                            <td class="risk-medium">8</td>
+                            <td class="risk-medium">12</td>
+                            <td class="risk-high">16</td>
+                            <td class="risk-high">20</td>
+                        </tr>
+                        <tr>
+                            <th class="matrix-header">3</th>
+                            <td class="risk-low">3</td>
+                            <td class="risk-medium">6</td>
+                            <td class="risk-medium">9</td>
+                            <td class="risk-medium">12</td>
+                            <td class="risk-high">15</td>
+                        </tr>
+                        <tr>
+                            <th class="matrix-header">2</th>
+                            <td class="risk-low">2</td>
+                            <td class="risk-low">4</td>
+                            <td class="risk-medium">6</td>
+                            <td class="risk-medium">8</td>
+                            <td class="risk-medium">10</td>
+                        </tr>
+                        <tr>
+                            <th class="matrix-header">1</th>
+                            <td class="risk-low">1</td>
+                            <td class="risk-low">2</td>
+                            <td class="risk-low">3</td>
+                            <td class="risk-low">4</td>
+                            <td class="risk-medium">5</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
+
+            <div id="cream" class="section"><div class="card"><h1>CREAM Assessment</h1><p>Coming soon.</p></div></div>
+            <div id="therp" class="section"><div class="card"><h1>THERP Analysis</h1><p>Coming soon.</p></div></div>
+
+        </div>
     </div>
 
     <script>
+        // 1. Menu Logic
         function toggleSidebar() {
             document.getElementById("mySidebar").classList.toggle("closed");
         }
@@ -254,42 +278,41 @@
             if (window.innerWidth < 768) {
                 document.getElementById("mySidebar").classList.add("closed");
             }
-            // --- HIRARC Calculator Logic ---
-        function calculateHirarc() {
-            // 1. Get the inputs from the user
-            let task = document.getElementById("jobTask").value;
-            let L = parseInt(document.getElementById("hirarc-l").value);
-            let S = parseInt(document.getElementById("hirarc-s").value);
+        } // Bracket is properly closed here now!
+
+        // 2. HIRARC Table Logic
+        function calculateRow(dropdownElement) {
+            // Find the specific table row that the user just clicked inside
+            let row = dropdownElement.parentElement.parentElement;
             
-            // 2. Calculate the score
-            let score = L * S;
-            
-            // 3. Find the HTML result elements
-            let panel = document.getElementById("hirarcResult");
-            let taskOut = document.getElementById("taskOutput");
-            let mathOut = document.getElementById("mathOutput");
-            let riskOut = document.getElementById("riskOutput");
-            
-            // 4. Reset the panel colors from previous calculations
-            panel.className = "result-panel"; 
-            panel.style.display = "block"; // Make it visible
-            
-            // 5. Determine the risk level and apply the right color class
-            if (score <= 4) {
-                panel.classList.add("risk-low");
-                riskOut.innerText = "LOW RISK";
-            } else if (score <= 14) {
-                panel.classList.add("risk-medium");
-                riskOut.innerText = "MEDIUM RISK";
+            // Get the selected numbers
+            let L = parseInt(row.querySelector('.val-l').value);
+            let S = parseInt(row.querySelector('.val-s').value);
+            let resultBox = row.querySelector('.result-cell');
+
+            // Only calculate if they have selected BOTH numbers
+            if (L > 0 && S > 0) {
+                let score = L * S;
+                
+                // Clear any old colors
+                resultBox.className = "result-cell"; 
+
+                // Apply new text and colors based on DOSH standards
+                if (score <= 4) {
+                    resultBox.innerHTML = score + "<br>LOW";
+                    resultBox.classList.add("risk-low");
+                } else if (score <= 14) {
+                    resultBox.innerHTML = score + "<br>MEDIUM";
+                    resultBox.classList.add("risk-medium");
+                } else {
+                    resultBox.innerHTML = score + "<br>HIGH";
+                    resultBox.classList.add("risk-high");
+                }
             } else {
-                panel.classList.add("risk-high");
-                riskOut.innerText = "HIGH RISK";
+                // If they haven't picked both, keep it blank
+                resultBox.innerHTML = "-";
+                resultBox.className = "result-cell";
             }
-            
-            // 6. Print the text inside the box
-            taskOut.innerHTML = `<strong>Task:</strong> ${task ? task : "Not specified"}`;
-            mathOut.innerHTML = `<strong>Calculation:</strong> L(${L}) × S(${S}) = ${score}`;
-        }
         }
     </script>
 
