@@ -10,22 +10,20 @@
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f4f7f6;
-            display: flex; /* This lines things up side-by-side */
+            display: flex;
             height: 100vh;
             overflow: hidden;
         }
-
-        /* 1. The Sidebar */
         .sidebar {
             width: 250px;
             background-color: #1a202c;
             color: white;
-            transition: 0.3s; /* Makes the open/close smooth */
+            transition: 0.3s;
             display: flex;
             flex-direction: column;
         }
         .sidebar.closed {
-            width: 0; /* Hides the sidebar */
+            width: 0;
             overflow: hidden;
         }
         .sidebar h2 {
@@ -47,22 +45,18 @@
             background-color: #2d3748;
             color: white;
         }
-
-        /* 2. The Main Right Side */
         .main-wrapper {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
             transition: 0.3s;
         }
-
-        /* 3. The Topbar */
         .topbar {
             background-color: white;
             height: 60px;
             display: flex;
             align-items: center;
-            justify-content: space-between; /* Pushes items to opposite ends */
+            justify-content: space-between;
             padding: 0 20px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
@@ -73,31 +67,55 @@
             cursor: pointer;
             color: #4a5568;
         }
-        .menu-btn:hover, .profile-btn:hover {
-            color: #2b6cb0;
-        }
-
-        /* 4. The Content Area */
+        .menu-btn:hover, .profile-btn:hover { color: #2b6cb0; }
         .content {
             padding: 30px;
             overflow-y: auto;
             flex-grow: 1;
         }
-        
-        /* This hides sections by default */
         .section { display: none; }
-        /* This shows the active section */
         .section.active { display: block; }
-        
-        /* Dashboard Card Styling */
         .card {
             background: white;
-            padding: 20px;
+            padding: 30px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             margin-bottom: 20px;
         }
         h1 { color: #2d3748; margin-top: 0; }
+        
+        /* --- NEW ABOUT SECTION STYLES --- */
+        .about-layout {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+        .profile-pic {
+            width: 200px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border: 3px solid #e2e8f0;
+        }
+        .contact-box {
+            background-color: #ebf8ff;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            border-left: 4px solid #3182ce;
+        }
+        .contact-box a {
+            color: #2b6cb0;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .contact-box a:hover { text-decoration: underline; }
+        
+        /* Makes it look good on mobile phones */
+        @media (max-width: 600px) {
+            .about-layout { flex-direction: column; align-items: center; text-align: center; }
+        }
     </style>
 </head>
 <body>
@@ -115,7 +133,6 @@
         
         <div class="topbar">
             <button class="menu-btn" onclick="toggleSidebar()">&#9776;</button>
-            
             <button class="profile-btn" onclick="showSection('about')">&#128100;</button>
         </div>
 
@@ -129,10 +146,20 @@
             </div>
 
             <div id="about" class="section">
-                <div class="card">
-                    <h1>About Nabhan</h1>
-                    <p><strong>PhD Candidate & Postgraduate Researcher</strong></p>
-                    <p>I am a researcher specializing in Process Safety and Human Reliability Analysis (HRA). My current work focuses on developing hybrid evaluation models integrating methodologies like AHP and DEMATEL to ensure safety compliance in high-hazard industries.</p>
+                <div class="card about-layout">
+                    <img src="profile.jpg" alt="Nabhan Profile Picture" class="profile-pic">
+                    
+                    <div>
+                        <h1>About Nabhan</h1>
+                        <p><strong>PhD Candidate & Postgraduate Researcher</strong></p>
+                        <p>Universiti Malaysia Pahang Al-Sultan Abdullah (UMPSA)</p>
+                        <p>I am a researcher specializing in Process Safety and Human Reliability Analysis (HRA). My current work focuses on developing hybrid evaluation models integrating methodologies like AHP and DEMATEL to ensure safety compliance in high-hazard industries.</p>
+                        
+                        <div class="contact-box">
+                            <p>📧 Email: <a href="mailto:muhammadnabhan7701@gmail.com">muhammadnabhan7701@gmail.com</a></p>
+                            <p>📞 Phone: <a href="tel:+60129267281">+60 12-926 7281</a></p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -161,26 +188,16 @@
     </div>
 
     <script>
-        // 1. Function to open/close the sidebar
         function toggleSidebar() {
-            let sidebar = document.getElementById("mySidebar");
-            sidebar.classList.toggle("closed");
+            document.getElementById("mySidebar").classList.toggle("closed");
         }
 
-        // 2. Function to hide all sections and show the one you clicked
         function showSection(sectionId) {
-            // Find all elements with the class 'section'
             let sections = document.getElementsByClassName("section");
-            
-            // Loop through them and hide them all
             for (let i = 0; i < sections.length; i++) {
                 sections[i].classList.remove("active");
             }
-            
-            // Find the specific section we want and show it
             document.getElementById(sectionId).classList.add("active");
-            
-            // On mobile devices, close the sidebar after clicking a link
             if (window.innerWidth < 768) {
                 document.getElementById("mySidebar").classList.add("closed");
             }
