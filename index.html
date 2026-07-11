@@ -116,6 +116,33 @@
         @media (max-width: 600px) {
             .about-layout { flex-direction: column; align-items: center; text-align: center; }
         }
+        /* --- HIRARC Calculator Styles --- */
+        .result-panel {
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none; /* Hidden until calculated */
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .risk-low { background-color: #48bb78; color: white; }
+        .risk-medium { background-color: #ecc94b; color: #2d3748; }
+        .risk-high { background-color: #f56565; color: white; }
+        
+        .matrix-legend {
+            display: flex;
+            justify-content: space-around;
+            background: #f7fafc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 30px;
+            border: 1px solid #e2e8f0;
+        }
+        .legend-item { display: flex; align-items: center; font-weight: bold; }
+        .color-box { width: 20px; height: 20px; border-radius: 4px; margin-right: 10px; }
+        .box-low { background-color: #48bb78; }
+        .box-medium { background-color: #ecc94b; }
+        .box-high { background-color: #f56565; }
     </style>
 </head>
 <body>
@@ -163,28 +190,54 @@
                 </div>
             </div>
 
-            <div id="hirarc" class="section">
+         <div id="hirarc" class="section">
                 <div class="card">
-                    <h1>HIRARC Calculator</h1>
-                    <p>Hazard Identification, Risk Assessment and Risk Control tool coming soon.</p>
+                    <h1>HIRARC Risk Calculator</h1>
+                    <p>Evaluate process safety risks based on standard Likelihood × Severity metrics.</p>
+
+                    <div class="form-group">
+                        <label>Job / Task Activity:</label>
+                        <input type="text" id="jobTask" placeholder="e.g., Chemical transferring...">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Likelihood (L):</label>
+                        <select id="hirarc-l">
+                            <option value="1">1 - Most Unlikely</option>
+                            <option value="2">2 - Unlikely</option>
+                            <option value="3">3 - Possible</option>
+                            <option value="4">4 - Likely</option>
+                            <option value="5">5 - Most Likely</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Severity (S):</label>
+                        <select id="hirarc-s">
+                            <option value="1">1 - Negligible (No injury)</option>
+                            <option value="2">2 - Minor (First aid)</option>
+                            <option value="3">3 - Moderate (Medical treatment)</option>
+                            <option value="4">4 - Major (Fatal/Permanent disability)</option>
+                            <option value="5">5 - Catastrophic (Multiple fatalities)</option>
+                        </select>
+                    </div>
+
+                    <button onclick="calculateHirarc()">Calculate Risk Score</button>
+
+                    <div id="hirarcResult" class="result-panel">
+                        <h3 style="margin:0 0 10px 0;">Assessment Result</h3>
+                        <p id="taskOutput" style="font-size: 1.1rem; margin-bottom: 5px;"></p>
+                        <p id="mathOutput" style="margin-bottom: 10px;"></p>
+                        <h2 id="riskOutput" style="margin:0; font-size: 2rem;"></h2>
+                    </div>
+
+                    <div class="matrix-legend">
+                        <div class="legend-item"><div class="color-box box-low"></div> Low Risk (1-4)</div>
+                        <div class="legend-item"><div class="color-box box-medium"></div> Medium Risk (5-14)</div>
+                        <div class="legend-item"><div class="color-box box-high"></div> High Risk (15-25)</div>
+                    </div>
                 </div>
             </div>
-
-            <div id="cream" class="section">
-                <div class="card">
-                    <h1>CREAM Assessment</h1>
-                    <p>Cognitive Reliability and Error Analysis Method tool coming soon.</p>
-                </div>
-            </div>
-
-            <div id="therp" class="section">
-                <div class="card">
-                    <h1>THERP Analysis</h1>
-                    <p>Technique for Human Error Rate Prediction tool coming soon.</p>
-                </div>
-            </div>
-
-        </div>
     </div>
 
     <script>
@@ -201,6 +254,42 @@
             if (window.innerWidth < 768) {
                 document.getElementById("mySidebar").classList.add("closed");
             }
+            // --- HIRARC Calculator Logic ---
+        function calculateHirarc() {
+            // 1. Get the inputs from the user
+            let task = document.getElementById("jobTask").value;
+            let L = parseInt(document.getElementById("hirarc-l").value);
+            let S = parseInt(document.getElementById("hirarc-s").value);
+            
+            // 2. Calculate the score
+            let score = L * S;
+            
+            // 3. Find the HTML result elements
+            let panel = document.getElementById("hirarcResult");
+            let taskOut = document.getElementById("taskOutput");
+            let mathOut = document.getElementById("mathOutput");
+            let riskOut = document.getElementById("riskOutput");
+            
+            // 4. Reset the panel colors from previous calculations
+            panel.className = "result-panel"; 
+            panel.style.display = "block"; // Make it visible
+            
+            // 5. Determine the risk level and apply the right color class
+            if (score <= 4) {
+                panel.classList.add("risk-low");
+                riskOut.innerText = "LOW RISK";
+            } else if (score <= 14) {
+                panel.classList.add("risk-medium");
+                riskOut.innerText = "MEDIUM RISK";
+            } else {
+                panel.classList.add("risk-high");
+                riskOut.innerText = "HIGH RISK";
+            }
+            
+            // 6. Print the text inside the box
+            taskOut.innerHTML = `<strong>Task:</strong> ${task ? task : "Not specified"}`;
+            mathOut.innerHTML = `<strong>Calculation:</strong> L(${L}) × S(${S}) = ${score}`;
+        }
         }
     </script>
 
